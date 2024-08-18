@@ -1,27 +1,35 @@
 import 'package:flutter/material.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const CustomAppBar({super.key});
+  const CustomAppBar({super.key, required this.title});
+  final String title;
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: const Row(
+      title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Icon(Icons.dehaze_rounded),
-          Text('Freshly'),
-          Icon(Icons.search),
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.menu),
+          ),
+          Text(title),
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.search),
+          ),
         ],
       ),
       backgroundColor: Colors.white,
-      iconTheme: const IconThemeData(color: Colors.green, size: 30.0),
+      iconTheme: const IconThemeData(color: Color(0xFF01937c), size: 30.0),
       titleTextStyle: const TextStyle(
-          color: Colors.green, fontSize: 25.0, fontWeight: FontWeight.bold),
+          color: Color(0xFF01937c),
+          fontSize: 25.0,
+          fontWeight: FontWeight.bold),
     );
   }
 
   @override
-  Size get preferredSize =>
-      const Size.fromHeight(56.0); // AppBar's default height in Material
+  Size get preferredSize => const Size.fromHeight(50.0);
 }
