@@ -14,11 +14,11 @@ class BottomNavBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return CupertinoTabBar(
       backgroundColor: CupertinoColors.systemBackground,
-      height: 70.0,
+      height: MediaQuery.of(context).size.height * 0.08,
       iconSize: 26.0,
       currentIndex: selectedIndex,
       inactiveColor: CupertinoColors.label,
-      activeColor: CupertinoColors.systemGreen,
+      activeColor: const Color(0xFF00967A),
       items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(
           icon: Icon(
