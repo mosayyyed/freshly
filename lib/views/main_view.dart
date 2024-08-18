@@ -25,6 +25,13 @@ class MainViewState extends State<MainView> {
     const InfoView(),
     const ProfileView(),
   ];
+  final List<String> _appBarTitles = [
+    "Freshly",
+    "Favorite Recipe",
+    "Cart",
+    "Information",
+    "Profile",
+  ];
 
   void _onItemTapped(int index) {
     setState(() {
@@ -35,7 +42,9 @@ class MainViewState extends State<MainView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(),
+      appBar: CustomAppBar(
+        title: _appBarTitles[_selectedIndex],
+      ),
       body: _pages[_selectedIndex],
       bottomNavigationBar: BottomNavBar(
         selectedIndex: _selectedIndex,
