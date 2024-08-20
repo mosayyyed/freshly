@@ -13,6 +13,7 @@ class BottomNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CupertinoTabBar(
+      border: null,
       backgroundColor: CupertinoColors.systemBackground,
       height: MediaQuery.of(context).size.height * 0.08,
       iconSize: 26.0,
