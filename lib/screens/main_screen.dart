@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:freshly/views/favorites_view.dart';
 
-import '../widgets/app_bar_widget.dart';
+import '../widgets/app_bar/app_bar_widget.dart';
 import '../widgets/bottom_nav_bar_widget.dart';
-import 'card_view.dart';
-import 'home_view.dart';
-import 'info_view.dart';
-import 'profile_view.dart';
+import 'card_screen.dart';
+import 'favorites_screen.dart';
+import 'home_screen.dart';
+import 'info_screen.dart';
+import 'profile_screen.dart';
 
 class MainView extends StatefulWidget {
   const MainView({super.key});
@@ -26,7 +26,7 @@ class MainViewState extends State<MainView> {
     const ProfileView(),
   ];
   final List<String> _appBarTitles = [
-    "Freshly",
+    "Home",
     "Favorite Recipe",
     "Cart",
     "Information",
@@ -42,7 +42,7 @@ class MainViewState extends State<MainView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(
+      appBar: MyCupertinoAppBar(
         title: _appBarTitles[_selectedIndex],
       ),
       body: _pages[_selectedIndex],
