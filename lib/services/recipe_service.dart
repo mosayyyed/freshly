@@ -1,12 +1,10 @@
 import 'package:dio/dio.dart';
-
+import '../env/env.dart';
 import '../models/recipe_model.dart';
 
 class RecipeService {
   final Dio _dio;
 
-  static const _apiKey = '9adbee6141624fb4a0101d11f55111a9';
-  static const _endPoint = 'https://api.spoonacular.com/recipes/complexSearch';
 
   RecipeService(this._dio);
 
@@ -17,14 +15,14 @@ class RecipeService {
   }) async {
     try {
       final response = await _dio.get(
-        _endPoint,
+        Env.endPoint,
         queryParameters: {
           'cuisine': cuisine,
           'type': type,
           'addRecipeInformation': 'true',
           'fillIngredients': 'true',
           'number': number,
-          'apiKey': _apiKey,
+          'apiKey': Env.apiKey,
         },
       );
 
