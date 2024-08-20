@@ -45,7 +45,7 @@ class _CategorySelectorState extends State<CategorySelector> {
                   child: Container(
                     decoration: BoxDecoration(
                       border: Border.all(
-                        width: 2,
+                        width: 1.2,
                         color: isSelected
                             ? selectedTagBackgroundColor
                             : unselectedTagTextColor,
