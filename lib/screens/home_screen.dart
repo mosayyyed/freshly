@@ -5,8 +5,8 @@ import '../widgets/featured_recipe_banner_widget.dart';
 import '../widgets/recipes_grid_widget.dart';
 import '../widgets/section_header_widget.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

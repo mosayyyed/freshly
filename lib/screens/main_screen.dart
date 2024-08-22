@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/app_bar/app_bar_widget.dart';
+import '../widgets/app_bar_widgets/app_bar_widget.dart';
 import '../widgets/bottom_nav_bar_widget.dart';
 import 'card_screen.dart';
 import 'favorites_screen.dart';
@@ -19,8 +19,8 @@ class MainViewState extends State<MainView> {
   int _selectedIndex = 0;
 
   final List<Widget> _pages = [
-    const HomePage(),
-    const FavoritesView(),
+    const HomeScreen(),
+    const FavoritesScreen(),
     const CardView(),
     const InfoView(),
     const ProfileView(),

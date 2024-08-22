@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../widgets/recipes_grid_widget.dart';
 
-class FavoritesView extends StatelessWidget {
-  const FavoritesView({super.key});
+class FavoritesScreen extends StatelessWidget {
+  const FavoritesScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
