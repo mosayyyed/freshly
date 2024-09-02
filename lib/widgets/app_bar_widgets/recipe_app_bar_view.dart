@@ -11,14 +11,14 @@ class MyCupertinoRecipeAppBarView extends StatefulWidget
   const MyCupertinoRecipeAppBarView({super.key, required this.recipe});
 
   @override
-  _MyCupertinoRecipeAppBarViewState createState() =>
-      _MyCupertinoRecipeAppBarViewState();
+  MyCupertinoRecipeAppBarViewState createState() =>
+      MyCupertinoRecipeAppBarViewState();
 
   @override
   Size get preferredSize => const Size.fromHeight(50.0);
 }
 
-class _MyCupertinoRecipeAppBarViewState
+class MyCupertinoRecipeAppBarViewState
     extends State<MyCupertinoRecipeAppBarView> {
   late Future<bool> _isFavoriteFuture;
   final DatabaseHelper _databaseHelper = DatabaseHelper();
