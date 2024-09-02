@@ -4,22 +4,32 @@ class CategorySelector extends StatefulWidget {
   const CategorySelector(
       {super.key,
       required this.selectedTagBackgroundColor,
-      required this.allTags});
+      required this.allTags,
+      required this.selectedIndex,
+      required this.onItemTapped});
 
   final Color selectedTagBackgroundColor;
   final List<String> allTags;
+  final int selectedIndex;
+  final ValueChanged<int> onItemTapped;
 
   @override
   State<CategorySelector> createState() => _CategorySelectorState();
 }
 
 class _CategorySelectorState extends State<CategorySelector> {
-  int selectedIndex = 0;
+  late int selectedIndex;
 
   static const Color selectedTagBackgroundColor = Color(0xFF00967A);
   static const Color unselectedTagBackgroundColor = Colors.white;
   static const Color selectedTagTextColor = Colors.white;
   static const Color unselectedTagTextColor = Colors.grey;
+
+  @override
+  void initState() {
+    super.initState();
+    selectedIndex = widget.selectedIndex;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +49,7 @@ class _CategorySelectorState extends State<CategorySelector> {
                   setState(() {
                     selectedIndex = index;
                   });
+                  widget.onItemTapped(index);
                 },
                 child: Padding(
                   padding: const EdgeInsets.only(left: 16, top: 2, bottom: 2),

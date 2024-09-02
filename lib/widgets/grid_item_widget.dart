@@ -43,7 +43,7 @@ class RecipeGridItem extends StatelessWidget {
                     Radius.circular(12.0),
                   ),
                   image: DecorationImage(
-                    image: NetworkImage(recipe.image),
+                    image: NetworkImage(recipe.imageUrl),
                     fit: BoxFit.cover,
                   ),
                 ),

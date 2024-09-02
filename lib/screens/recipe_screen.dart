@@ -35,29 +35,29 @@ class RecipeViewState extends State<RecipeView> {
       isAddedToGroceryList = !isAddedToGroceryList;
     });
 
-    final message = isAddedToGroceryList
+    final String message = isAddedToGroceryList
         ? 'Added to Grocery List'
         : 'Removed from Grocery List';
 
-    ScaffoldMessenger.of(context)
-        .showSnackBar(SnackBar(content: Text(message)));
-  }
-
-  void _startCooking() {
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Let\'s start cooking!')),
+      SnackBar(
+        backgroundColor: const Color(0xFF01937c),
+        content: Text(message),
+      ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const MyCupertinoRecipeAppBarView(),
+      appBar: MyCupertinoRecipeAppBarView(
+        recipe: widget.recipe,
+      ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            RecipeImageView(imageUrl: widget.recipe.image),
+            RecipeImageView(imageUrl: widget.recipe.imageUrl),
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
@@ -81,7 +81,7 @@ class RecipeViewState extends State<RecipeView> {
                   ),
                   RecipeIngredientsList(
                       ingredients: widget.recipe.originalIngredients),
-                  RecipeStartCookingButton(onPressed: _startCooking),
+                  const RecipeStartCookingButton(),
                 ],
               ),
             ),

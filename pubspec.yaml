@@ -41,6 +41,9 @@ dependencies:
   envied_generator: ^0.5.4+1
   build_runner: ^2.4.11
   flutter_widget_from_html: ^0.15.1
+  smooth_page_indicator: ^1.2.0+3
+  sqflite:
+  path:
 
 dev_dependencies:
   flutter_test:

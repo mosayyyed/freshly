@@ -37,7 +37,7 @@ class RecipeInfoRow extends StatelessWidget {
           text,
           style: const TextStyle(
             color: Color(0xFF01937c),
-            fontSize: 16.0,
+            fontSize: 14.0,
             fontWeight: FontWeight.bold,
           ),
         ),

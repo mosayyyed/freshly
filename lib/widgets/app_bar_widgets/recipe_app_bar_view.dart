@@ -1,18 +1,57 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 
-class MyCupertinoRecipeAppBarView extends StatelessWidget
+import '../../models/recipe_model.dart';
+import '../../services/database_helper.dart';
+
+class MyCupertinoRecipeAppBarView extends StatefulWidget
     implements PreferredSizeWidget {
-  const MyCupertinoRecipeAppBarView({super.key});
+  final RecipeModel recipe;
+
+  const MyCupertinoRecipeAppBarView({super.key, required this.recipe});
+
+  @override
+  _MyCupertinoRecipeAppBarViewState createState() =>
+      _MyCupertinoRecipeAppBarViewState();
+
+  @override
+  Size get preferredSize => const Size.fromHeight(50.0);
+}
+
+class _MyCupertinoRecipeAppBarViewState
+    extends State<MyCupertinoRecipeAppBarView> {
+  late Future<bool> _isFavoriteFuture;
+  final DatabaseHelper _databaseHelper = DatabaseHelper();
+
+  @override
+  void initState() {
+    super.initState();
+    _isFavoriteFuture = _checkIfFavorite();
+  }
+
+  Future<bool> _checkIfFavorite() async {
+    final favorites = await _databaseHelper.getFavorites();
+    return favorites.any((fav) => fav.id == widget.recipe.id);
+  }
+
+  void _toggleFavorite() async {
+    final isFavorite = await _checkIfFavorite();
+    if (isFavorite) {
+      await _databaseHelper.deleteFavorite(widget.recipe.id);
+    } else {
+      await _databaseHelper.insertFavorite(widget.recipe);
+    }
+    setState(() {
+      _isFavoriteFuture = _checkIfFavorite();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    // Adjust the system UI overlay style to remove the shadow
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-      statusBarColor: CupertinoColors.white, // Color of the status bar
-      statusBarBrightness: Brightness.light, // For iOS (light or dark content)
-      statusBarIconBrightness:
-          Brightness.dark, // For Android (light or dark icons)
+      statusBarColor: CupertinoColors.white,
+      statusBarBrightness: Brightness.light,
+      statusBarIconBrightness: Brightness.dark,
     ));
 
     return CupertinoNavigationBar(
@@ -30,14 +69,36 @@ class MyCupertinoRecipeAppBarView extends StatelessWidget
       trailing: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          CupertinoButton(
-            padding: EdgeInsets.zero,
-            onPressed: () {},
-            child: const Icon(
-              CupertinoIcons.heart,
-              color: Color(0xff000000),
-              size: 20.0,
-            ),
+          FutureBuilder<bool>(
+            future: _isFavoriteFuture,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const CupertinoButton(
+                  padding: EdgeInsets.zero,
+                  onPressed: null,
+                  child: Icon(
+                    CupertinoIcons.heart,
+                    color: Color(0xff000000),
+                    size: 20.0,
+                  ),
+                );
+              } else {
+                final isFavorite = snapshot.data ?? false;
+                return CupertinoButton(
+                  padding: EdgeInsets.zero,
+                  onPressed: _toggleFavorite,
+                  child: Icon(
+                    isFavorite
+                        ? CupertinoIcons.heart_fill
+                        : CupertinoIcons.heart,
+                    color: isFavorite
+                        ? const Color(0xFF01937c)
+                        : const Color(0xff000000),
+                    size: 20.0,
+                  ),
+                );
+              }
+            },
           ),
           CupertinoButton(
             padding: EdgeInsets.zero,
@@ -72,7 +133,4 @@ class MyCupertinoRecipeAppBarView extends StatelessWidget
       border: null,
     );
   }
-
-  @override
-  Size get preferredSize => const Size.fromHeight(50.0);
 }

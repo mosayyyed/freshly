@@ -2,11 +2,13 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 import '../models/recipe_model.dart';
+import '../services/database_helper.dart';
 import '../services/recipe_service.dart';
 import 'grid_item_widget.dart';
 
 class RecipesGrid extends StatefulWidget {
-  const RecipesGrid({super.key});
+  const RecipesGrid({super.key, required this.dishType});
+  final String dishType;
 
   @override
   State<RecipesGrid> createState() => _RecipesGridState();
@@ -15,15 +17,43 @@ class RecipesGrid extends StatefulWidget {
 class _RecipesGridState extends State<RecipesGrid> {
   late Future<List<RecipeModel>> _recipesFuture;
   final RecipeService _recipeService = RecipeService(Dio());
+  final DatabaseHelper _databaseHelper = DatabaseHelper();
 
   @override
   void initState() {
     super.initState();
-    _recipesFuture = _recipeService.fetchRecipes(
-      cuisine: 'Mediterranean',
-      type: 'main course',
-      number: 10,
-    );
+    _fetchRecipes();
+  }
+
+  @override
+  void didUpdateWidget(covariant RecipesGrid oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.dishType != widget.dishType) {
+      _fetchRecipes();
+    }
+  }
+
+  void _fetchRecipes() {
+    setState(() {
+      _recipesFuture = _recipeService.fetchRecipes(
+        cuisine: 'American',
+        type: widget.dishType,
+        number: 20,
+      );
+    });
+  }
+
+  void _toggleFavorite(RecipeModel recipe) async {
+    final favorites = await _databaseHelper.getFavorites();
+    final isFavorite = favorites.any((fav) => fav.id == recipe.id);
+
+    if (isFavorite) {
+      await _databaseHelper.deleteFavorite(recipe.id);
+    } else {
+      await _databaseHelper.insertFavorite(recipe);
+    }
+
+    setState(() {});
   }
 
   @override
@@ -57,10 +87,18 @@ class _RecipesGridState extends State<RecipesGrid> {
               delegate: SliverChildBuilderDelegate(
                 (context, index) {
                   final recipe = recipes[index];
-                  return RecipeGridItem(
-                    recipe: recipe,
-                    isFavorite: true,
-                    onFavoriteToggle: () {},
+                  return FutureBuilder<List<RecipeModel>>(
+                    future: _databaseHelper.getFavorites(),
+                    builder: (context, snapshot) {
+                      final isFavorite =
+                          snapshot.data?.any((fav) => fav.id == recipe.id) ??
+                              false;
+                      return RecipeGridItem(
+                        recipe: recipe,
+                        isFavorite: isFavorite,
+                        onFavoriteToggle: () => _toggleFavorite(recipe),
+                      );
+                    },
                   );
                 },
                 childCount: recipes.length,

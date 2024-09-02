@@ -6,6 +6,4 @@ part 'env.g.dart';
 final class Env {
   @EnviedField(varName: 'APIKEY', obfuscate: true)
   static final String apiKey = _Env.apiKey;
-  @EnviedField(varName: 'ENDPOINT')
-  static const String endPoint = _Env.endPoint;
 }

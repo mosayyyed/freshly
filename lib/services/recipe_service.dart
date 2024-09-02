@@ -1,28 +1,27 @@
 import 'package:dio/dio.dart';
-import '../env/env.dart';
+
 import '../models/recipe_model.dart';
 
 class RecipeService {
   final Dio _dio;
 
-
   RecipeService(this._dio);
-
+  final endPoint = "https://api.spoonacular.com/recipes/complexSearch";
   Future<List<RecipeModel>> fetchRecipes({
-    String cuisine = 'Mediterranean',
+    String cuisine = 'American',
     String type = 'main course',
     int number = 10,
   }) async {
     try {
       final response = await _dio.get(
-        Env.endPoint,
+        endPoint,
         queryParameters: {
           'cuisine': cuisine,
           'type': type,
           'addRecipeInformation': 'true',
           'fillIngredients': 'true',
           'number': number,
-          'apiKey': Env.apiKey,
+          'apiKey': "67db5684aad2401a93ab8723def6fcbf",
         },
       );
 

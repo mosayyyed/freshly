@@ -5,27 +5,44 @@ import '../widgets/featured_recipe_banner_widget.dart';
 import '../widgets/recipes_grid_widget.dart';
 import '../widgets/section_header_widget.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
   @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  final List<String> _categories = [
+    "All Recipes",
+    "Break fast",
+    "Lunch",
+    "Dinner",
+    "Snack",
+  ];
+
+  String _selectedCategory = 'All Recipes';
+
+  void _onCategoryTapped(int index) {
+    setState(() {
+      _selectedCategory = _categories[index];
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: CustomScrollView(
         slivers: [
-          FeaturedRecipeBanner(),
+          const FeaturedRecipeBanner(),
           CategorySelector(
-            allTags: [
-              "All Recipes",
-              "Breakfast",
-              "Lunch",
-              "Dinner",
-              "Snack",
-            ],
-            selectedTagBackgroundColor: Color(0xFF01937c),
+            allTags: _categories,
+            selectedTagBackgroundColor: const Color(0xFF01937c),
+            selectedIndex: _categories.indexOf(_selectedCategory),
+            onItemTapped: _onCategoryTapped,
           ),
-          SectionHeader(title: 'Popular Recipes', seeMore: 'See All'),
-          RecipesGrid(),
+          const SectionHeader(title: 'Popular Recipes', seeMore: 'See All'),
+          RecipesGrid(dishType: _selectedCategory),
         ],
       ),
     );

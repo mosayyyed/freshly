@@ -2,8 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 
 class MyCupertinoAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const MyCupertinoAppBar({super.key, required this.title});
+  const MyCupertinoAppBar(
+      {super.key, required this.title, required this.onDrawerPressed});
   final String title;
+  final VoidCallback onDrawerPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +28,7 @@ class MyCupertinoAppBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       leading: CupertinoButton(
         padding: EdgeInsets.zero,
-        onPressed: () {},
+        onPressed: onDrawerPressed,
         child: const Icon(
           CupertinoIcons.bars,
           color: Color(0xFF01937c),
