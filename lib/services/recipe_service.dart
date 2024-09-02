@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:freshly/env/env.dart';
 
 import '../models/recipe_model.dart';
 
@@ -21,7 +22,7 @@ class RecipeService {
           'addRecipeInformation': 'true',
           'fillIngredients': 'true',
           'number': number,
-          'apiKey': "67db5684aad2401a93ab8723def6fcbf",
+          'apiKey': Env.apiKey,
         },
       );
 

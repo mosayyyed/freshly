@@ -11,7 +11,7 @@ class DatabaseHelper {
 
   static Database? _database;
 
-  Future<Database> get database async {
+  Future<Database> database() async {
     if (_database != null) return _database!;
     _database = await _initDatabase();
     return _database!;
@@ -31,7 +31,7 @@ class DatabaseHelper {
   }
 
   Future<void> insertFavorite(RecipeModel recipe) async {
-    final db = await database;
+    final db = await database();
     await db.insert(
       'favorites',
       recipe.toMap(),
@@ -40,7 +40,7 @@ class DatabaseHelper {
   }
 
   Future<void> deleteFavorite(int id) async {
-    final db = await database;
+    final db = await database();
     await db.delete(
       'favorites',
       where: 'id = ?',
@@ -49,7 +49,7 @@ class DatabaseHelper {
   }
 
   Future<List<RecipeModel>> getFavorites() async {
-    final db = await database;
+    final db = await database();
     final List<Map<String, dynamic>> maps = await db.query('favorites');
     return List.generate(maps.length, (i) {
       return RecipeModel.fromMap(maps[i]);
