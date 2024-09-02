@@ -60,7 +60,7 @@ class RecipeGridItem extends StatelessWidget {
                       shape: BoxShape.circle,
                     ),
                     child: Icon(
-                      Icons.favorite,
+                      isFavorite ? Icons.favorite : Icons.favorite_border,
                       color: isFavorite ? Colors.red : Colors.white,
                       size: 24.0,
                     ),
