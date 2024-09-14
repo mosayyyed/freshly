@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:freshly/constants.dart';
+import 'package:freshly/screens/splash_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'screens/main_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,10 +19,10 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         textTheme: GoogleFonts.montserratTextTheme(),
         scaffoldBackgroundColor: Colors.white,
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
+        colorScheme: ColorScheme.fromSeed(seedColor: kPrimaryColor),
         useMaterial3: true,
       ),
-      home: const MainView(),
+      home: const SplashScreen(),
     );
   }
 }
