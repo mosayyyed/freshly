@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "889370283383",
+    "project_id": "freshly-665b1",
+    "storage_bucket": "freshly-665b1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:889370283383:android:29d8575443db00db61e572",
+        "android_client_info": {
+          "package_name": "com.example.freshly"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFTQG4loGQJPoPgdgE1LnJhxmFUhmgMqw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

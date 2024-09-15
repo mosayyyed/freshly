@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:freshly/screens/login_screen.dart';
 import 'package:freshly/screens/main_screen.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -107,7 +108,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                               context,
                                               MaterialPageRoute(
                                                 builder: (context) =>
-                                                    const MainView(),
+                                                     LoginScreen(),
                                               ));
                                         } else {
                                           _controller.nextPage(
