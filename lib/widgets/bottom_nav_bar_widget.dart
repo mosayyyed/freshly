@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
+import '../constants.dart';
+
 class BottomNavBar extends StatelessWidget {
   final int selectedIndex;
   final ValueChanged<int> onItemTapped;
@@ -18,7 +20,7 @@ class BottomNavBar extends StatelessWidget {
       iconSize: 26.0,
       currentIndex: selectedIndex,
       inactiveColor: CupertinoColors.label,
-      activeColor: const Color(0xFF00967A),
+      activeColor: kPrimaryColor,
       items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(
           icon: Icon(
@@ -30,11 +32,11 @@ class BottomNavBar extends StatelessWidget {
           icon: Icon(CupertinoIcons.heart),
         ),
         BottomNavigationBarItem(
-          icon: Icon(CupertinoIcons.cart),
+          icon: Icon(CupertinoIcons.play_rectangle),
         ),
-        BottomNavigationBarItem(
-          icon: Icon(CupertinoIcons.info),
-        ),
+        // BottomNavigationBarItem(
+        //   icon: Icon(CupertinoIcons.info),
+        // ),
         BottomNavigationBarItem(
           icon: Icon(CupertinoIcons.person),
         ),

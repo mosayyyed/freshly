@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
+import '../constants.dart';
 import '../models/recipe_model.dart';
 import '../screens/recipe_screen.dart';
 import '../services/recipe_service.dart';
@@ -176,7 +177,7 @@ class FeaturedRecipeBannerState extends State<FeaturedRecipeBanner> {
                       count: recipes.length,
                       effect: const WormEffect(
                         dotColor: Colors.white70,
-                        activeDotColor: Color(0xFF00967A),
+                        activeDotColor: kPrimaryColor,
                         dotHeight: 12,
                         dotWidth: 12,
                       ),

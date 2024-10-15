@@ -9,6 +9,8 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import '../widgets/login&sign_up_widgets/custom_button.dart';
 
 class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
+
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
@@ -92,8 +94,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       });
                       try {
                         await loginUser();
-
-                        // عرض SnackBar عند نجاح تسجيل الدخول
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
                             content: Text('Login successful!'),
@@ -119,7 +119,6 @@ class _LoginScreenState extends State<LoginScreen> {
                               'An unexpected error occurred: ${e.message}';
                         }
 
-                        // عرض SnackBar عند حدوث خطأ
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             content: Text(errorMessage),
@@ -127,7 +126,6 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         );
                       } catch (e) {
-                        // عرض SnackBar عند حدوث خطأ غير معروف
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             content: Text('Error occurred: $e'),

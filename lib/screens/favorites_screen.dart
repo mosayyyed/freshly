@@ -9,10 +9,10 @@ class FavoritesScreen extends StatefulWidget {
   const FavoritesScreen({super.key});
 
   @override
-  _FavoritesScreenState createState() => _FavoritesScreenState();
+  FavoritesScreenState createState() => FavoritesScreenState();
 }
 
-class _FavoritesScreenState extends State<FavoritesScreen> {
+class FavoritesScreenState extends State<FavoritesScreen> {
   final DatabaseHelper _databaseHelper = DatabaseHelper();
   late Future<List<RecipeModel>> _favoritesFuture;
 
