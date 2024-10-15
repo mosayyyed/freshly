@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 
 import '../widgets/app_bar_widgets/app_bar_widget.dart';
 import '../widgets/bottom_nav_bar_widget.dart';
-import 'card_screen.dart';
 import 'favorites_screen.dart';
 import 'home_screen.dart';
-import 'info_screen.dart';
 import 'profile_screen.dart';
+import 'shorts_screen.dart';
 
 class MainView extends StatefulWidget {
   const MainView({super.key});
@@ -22,15 +21,15 @@ class MainViewState extends State<MainView> {
   final List<Widget> _pages = [
     const HomeScreen(),
     const FavoritesScreen(),
-    const CardView(),
-    const InfoView(),
+    const ShortsScreen(),
+    // const InfoView(),
     const ProfileView(),
   ];
   final List<String> _appBarTitles = [
     "Home",
     "Favorite Recipe",
-    "Cart",
-    "Information",
+    "Shorts",
+    // "Information",
     "Profile",
   ];
 
@@ -105,7 +104,8 @@ class MainViewState extends State<MainView> {
                 },
               ),
               ListTile(
-                leading: const Icon(Icons.shopping_cart, color: Color(0xFF01937c)),
+                leading:
+                    const Icon(Icons.shopping_cart, color: Color(0xFF01937c)),
                 title: const Text('Cart'),
                 onTap: () {
                   setState(() {
