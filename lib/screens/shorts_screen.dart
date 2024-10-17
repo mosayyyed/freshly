@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
+import '../env/env.dart';
+
 class ShortsScreen extends StatefulWidget {
   const ShortsScreen({super.key});
 
@@ -13,6 +15,7 @@ class ShortsScreen extends StatefulWidget {
 class ShortsScreenState extends State<ShortsScreen> {
   List<dynamic> videos = [];
   bool isLoading = true;
+  String? errorMessage;
 
   @override
   void initState() {
@@ -21,18 +24,23 @@ class ShortsScreenState extends State<ShortsScreen> {
   }
 
   Future<void> fetchVideos() async {
-    const apiKey = 'a57df8a1fdf8431aaba4b05321421500';
-    const url =
-        'https://api.spoonacular.com/food/videos/search?query=pasta&minLength=0&maxLength=60&number=5&apiKey=$apiKey';
+    String url =
+        'https://api.spoonacular.com/food/videos/search?query=pasta&minLength=0&maxLength=60&number=5&apiKey=${Env.apiKey}';
 
     try {
       var response = await Dio().get(url);
-      setState(() {
-        videos = response.data['videos'];
-        isLoading = false;
-      });
+      if (response.data['videos'] != null) {
+        setState(() {
+          videos = response.data['videos'];
+        });
+      } else {
+        throw Exception('No videos found');
+      }
     } catch (e) {
-      print('Failed to load videos: $e');
+      setState(() {
+        errorMessage = 'Failed to load videos: $e';
+      });
+    } finally {
       setState(() {
         isLoading = false;
       });
@@ -42,28 +50,50 @@ class ShortsScreenState extends State<ShortsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
+      appBar: AppBar(
+        title:
+            const Text('Short Videos', style: TextStyle(color: Colors.white)),
+        backgroundColor: Colors.black54,
+        elevation: 0,
+      ),
       body: isLoading
           ? const Center(child: CircularProgressIndicator())
-          : Swiper(
-        itemCount: videos.length,
-        itemBuilder: (BuildContext context, int index) {
-          final video = videos[index];
-          return Card(
-            elevation: 8,
-            margin: const EdgeInsets.all(8.0),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15),
-            ),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(15),
-              child: ShortVideoPlayer(
-                youtubeId: video['youTubeId'],
-              ),
-            ),
-          );
-        },
-        scrollDirection: Axis.vertical,
-      ),
+          : errorMessage != null
+              ? Center(
+                  child: Text(errorMessage!,
+                      style: const TextStyle(color: Colors.red)))
+              : Swiper(
+                  itemCount: videos.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    final video = videos[index];
+                    return Card(
+                      elevation: 8,
+                      margin: const EdgeInsets.all(8.0),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(15),
+                        child: ShortVideoPlayer(
+                          youtubeId: video['youTubeId'],
+                        ),
+                      ),
+                    );
+                  },
+                  scrollDirection: Axis.vertical,
+                  pagination: SwiperPagination(
+                    alignment: Alignment.bottomCenter,
+                    builder: DotSwiperPaginationBuilder(
+                      color: Colors.white.withOpacity(0.5),
+                      activeColor: Colors.white,
+                    ),
+                  ),
+                  control: const SwiperControl(
+                    color: Colors.white,
+                    size: 30,
+                  ),
+                ),
     );
   }
 }
@@ -103,8 +133,7 @@ class ShortVideoPlayerState extends State<ShortVideoPlayer> {
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      height:
-      MediaQuery.of(context).size.height * 0.75,
+      height: MediaQuery.of(context).size.height * 0.75,
       child: YoutubePlayer(
         controller: _controller,
         showVideoProgressIndicator: true,
