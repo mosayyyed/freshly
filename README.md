@@ -1,4 +1,4 @@
-# 🍳 Recipe App - Mobile Application
+# 🍳 Freshly App - Mobile Application
 
 ## 📋 Project Overview
 
