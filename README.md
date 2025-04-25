@@ -1,5 +1,5 @@
 # 🍳 Freshly App - Mobile Application
-![2866ff135219925 61e449ac9bfeb](https://github.com/user-attachments/assets/b7d44984-45e2-4648-9230-fa48fdab4a52)
+![Freshly-App](https://github.com/user-attachments/assets/88ca0069-bb73-41b8-80aa-3f76b4196d05)
 
 ## 📋 Project Overview
 
